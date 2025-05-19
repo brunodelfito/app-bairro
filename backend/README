@@ -1,0 +1,4 @@
+# Executar
+
+python -m src.server
+uvicorn src.servr:app --reload --reload-dir=src
