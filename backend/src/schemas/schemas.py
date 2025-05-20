@@ -3,9 +3,9 @@ from typing import Optional, List
 
 class Usuario(BaseModel):
     id: Optional[str] = None
-    name: str
+    nome: str
     telefone: str
-    #meus_produtos: List[Produto]
+    #meus_produtos: List[Produto] = []
     #minhas_vendas: List[Pedido]
     #meus_pedido: List[Pedido]
 
