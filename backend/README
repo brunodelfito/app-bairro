@@ -1,10 +1,10 @@
 # Executar
 
 python -m src.server
-uvicorn src.servr:app --reload --reload-dir=src
+uvicorn src.server:app --reload --reload-dir=src
 
 #Aula 24
 #Alembic
 alembic init alembic
-alembic revision --autogerenerate -m "inicial" - Cria uma revisão, faz um depara com anterior se existir, cria as atlterações
+alembic revision --autogenerate -m "inicial" - Cria uma revisão, faz um depara com anterior se existir, cria as atlterações
 alembic upgrade head - Aplicar revisao pendente.

@@ -11,9 +11,12 @@ class Protudo(Base):
     preco = Column(Float)
     disponivel = Column(Boolean)
     tamanhos = Column(String)
-    usuario_id = Column(Integer, ForeignKey('usuario.id', name='fk_nome'))  # Chave estrangeira para o usuário
+    usuario_id = Column(Integer, ForeignKey('usuario.id'))  # Chave estrangeira para o usuário
 
-    usuarios_fk = relationship('usuario', back_populates='produtos_fk')  # Relacionamento com Usuario
+    #usuarios_fk = relationship('Usuario', back_populates='produtos_fk')  # Relacionamento com Usuario
+
+    class Config:
+        from_attributes = True
 
 class Usuario(Base):
     __tablename__ = 'usuario'
@@ -23,4 +26,7 @@ class Usuario(Base):
     senha = Column(String)
     telefone = Column(String)
 
-    produtos_fk = relationship('produto', back_populates='usuarios_fk')  # Relacionamento com Protudo
+    #produtos_fk = relationship('Produto', back_populates='usuarios_fk')  # Relacionamento com Protudo
+
+    class Config:
+        from_attributes = True
