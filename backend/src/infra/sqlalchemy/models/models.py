@@ -30,3 +30,24 @@ class Usuario(Base):
 
     class Config:
         from_attributes = True
+
+
+class Pedido(Base):
+    __tablename__ = 'pedido'
+
+    id = Column(Integer, primary_key=True, index=True)
+    quantidade = Column(Integer)
+    local_entrega = Column(String)
+    tipo_entrega = Column(String)
+    observacoes = Column(String, default='Sem observações')
+
+    produto_id = Column(Integer, ForeignKey('produto.id', name='fk_pedido_produto'))  # Chave estrangeira para o produto
+    usuario_id = Column(Integer, ForeignKey('usuario.id', name='fk_pedido_usuario'))  # Chave estrangeira para o usuário
+
+    usuario = relationship('Usuario')
+    produto = relationship('Protudo')
+    
+
+
+    class Config:
+        from_attributes = True

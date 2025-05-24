@@ -8,8 +8,18 @@ class Produto(BaseModel):
     detalhes: str
     preco: float
     disponivel: bool = False
-    usuario_id: int
-    #usuario: Optional[Usuario]
+    usuario_id: Optional[int]
+    #usuario_fk: Optional[Usuario]
+
+    class Config:
+        from_attributes = True
+
+class ProdutoSimples(BaseModel):
+    id: Optional[int] = None
+    nome: str
+    detalhes: str
+    preco: float
+    disponivel: bool = False
 
     class Config:
         from_attributes = True
