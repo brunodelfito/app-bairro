@@ -37,6 +37,25 @@ class Usuario(BaseModel):
     class Config:
         from_attributes = True
 
+class UsuarioSimples(BaseModel):
+    nome: str
+    telefone: str
+    #meus_produtos: List[Produto] = []
+    #minhas_vendas: List[Pedido]
+    #meus_pedido: List[Pedido]
+
+    class Config:
+        from_attributes = True
+
+class LoginData(BaseModel):
+    senha: str
+    telefone: str
+
+
+    class Config:
+        from_attributes = True
+
+
 
 class Pedido(BaseModel):
     id: Optional[int] = None

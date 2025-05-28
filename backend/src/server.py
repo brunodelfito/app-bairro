@@ -2,8 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.infra.sqlalchemy.config.database import criar_bd
 from src.routers import rotas_produtos
-from src.routers import rotas_usuarios
-
+from src.routers import rotas_auth
+from src.routers import rotas_pedido
 
 criar_bd()  # Cria o banco de dados se não existir
 
@@ -24,5 +24,6 @@ app.add_middleware(
 #Router
 
 app.include_router(rotas_produtos.router)
-app.include_router(rotas_usuarios.router)
+app.include_router(rotas_auth.router, prefix="/auth", tags=["auth"])
+app.include_router(rotas_pedido.router)
 
