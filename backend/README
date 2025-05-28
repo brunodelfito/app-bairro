@@ -12,3 +12,6 @@ uvicorn src.server:app --reload --reload-dir=src
 alembic init alembic
 alembic revision --autogenerate -m "inicial" - Cria uma revisão, faz um depara com anterior se existir, cria as atlterações
 alembic upgrade head - Aplicar revisao pendente.
+
+
+pip install -r requirements.txt

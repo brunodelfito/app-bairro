@@ -3,7 +3,8 @@ from typing import List
 from sqlalchemy.orm import Session
 from src.infra.sqlalchemy.config.database import get_db
 from src.infra.sqlalchemy.repositorios.repositorio_pedido import Repositorio_pedido
-from src.schemas.schemas import Pedido
+from src.schemas.schemas import Pedido, Usuario
+from src.routers.auth_utils import obter_usuario_logado
 
 
 router = APIRouter()
@@ -23,9 +24,9 @@ def exibir_pedido(id: int, session: Session = Depends(get_db)):
         
 
 @router.get("/pedidos/", response_model=List[Pedido])
-def listar_pedidos(usuario_id: int, session: Session = Depends(get_db)):
+def listar_pedidos(usuario: Usuario = Depends(obter_usuario_logado), session: Session = Depends(get_db)):
     try:
-        pedidos = Repositorio_pedido(session).listar_meus_pedidos_por_usuario_id(usuario_id)
+        pedidos = Repositorio_pedido(session).listar_meus_pedidos_por_usuario_id(usuario.id)
         return pedidos
     except:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Nenhum pedido encontrado para o usuário informado.")

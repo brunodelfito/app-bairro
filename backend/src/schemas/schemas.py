@@ -56,6 +56,14 @@ class LoginData(BaseModel):
         from_attributes = True
 
 
+class LoginSucesso(BaseModel):
+    usuario: UsuarioSimples
+    acess_token: str
+
+    class Config:
+        from_attributes = True
+
+
 
 class Pedido(BaseModel):
     id: Optional[int] = None
