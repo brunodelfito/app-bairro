@@ -2,8 +2,9 @@ from fastapi import APIRouter, status, Depends, HTTPException
 from typing import List 
 from sqlalchemy.orm import Session
 from src.infra.sqlalchemy.config.database import get_db
-from src.schemas.schemas import Produto
+from src.schemas.schemas import Produto, Usuario
 from src.infra.sqlalchemy.repositorios.repositorio_produto import RepositorioProduto
+from src.routers.auth_utils import obter_usuario_logado
 
 router = APIRouter()
 
@@ -22,8 +23,8 @@ def listar_produtos(sesion: Session = Depends(get_db)):
 
 
 @router.get("/produtos/{id}")
-def exibir_produto(id: int, session: Session = Depends(get_db)):
-    produto_localizado = RepositorioProduto(session).buscaPorId(id)
+def exibir_produto(id: int, usuario: Usuario = Depends(obter_usuario_logado), session: Session = Depends(get_db)):
+    produto_localizado = RepositorioProduto(session).buscaPorId(id, usuario_id = usuario.id)
     if not produto_localizado:
         raise HTTPException(status_code=404, detail=f'Produto com id={id}, não encontrado')
     return produto_localizado

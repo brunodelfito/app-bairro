@@ -19,9 +19,9 @@ class RepositorioProduto():
         produtos = self.session.query(models.Protudo).all()
         return produtos
     
-    def buscaPorId(self, id: int):
-        consulta = select(models.Protudo).where(models.Protudo.id == id)
-        produto = self.session.execute(consulta).first()
+    def buscaPorId(self, id: int, usuario_id: int):
+        consulta = select(models.Protudo).where(models.Protudo.id == id, models.Protudo.usuario_id == usuario_id)
+        produto = self.session.execute(consulta).scalar_one_or_none()
         return produto
 
     def editar(self, id: int, produto: schemas.Produto):

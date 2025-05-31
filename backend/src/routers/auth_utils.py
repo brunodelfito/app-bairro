@@ -9,7 +9,7 @@ from src.infra.providers import token_provider
 oauth2_schema = OAuth2PasswordBearer(tokenUrl='token')
 
 
-def obter_usuario_logado(token: str = Depends(oauth2_schema)):
+def obter_usuario_logado(token: str = Depends(oauth2_schema), session: Session = Depends(get_db)):
     
     try:
         telefone = token_provider.verificar_acess_token(token)
@@ -19,7 +19,8 @@ def obter_usuario_logado(token: str = Depends(oauth2_schema)):
     if not telefone:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token inválido ou expirado")
     
-    usuario = RepositorioUsuario(Session).obter_por_telefone(telefone)
+    
+    usuario = RepositorioUsuario(session).obter_por_telefone(telefone)
     if not usuario:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Usuário não encontrado")    
     

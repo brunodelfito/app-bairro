@@ -23,9 +23,9 @@ class RepositorioUsuario():
         usuarios = self.session.execute(stmt).scalars().all()
         return usuarios
     
-    def obter_por_telefone(self, telefone: str) -> schemas.Usuario:
+    def obter_por_telefone(self, telefone: str, ) -> schemas.Usuario:
         query= select(models.Usuario).where(models.Usuario.telefone == telefone)
-        return self.session.execute(query).scalar.fast()
+        return self.session.execute(query).scalar()
 
     def obter(self, usuario):
         self.session.commit()
